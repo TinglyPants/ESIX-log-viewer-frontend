@@ -2,7 +2,7 @@ import { useState } from "react";
 import LogHistoryViewer from "./LogHistoryViewer";
 
 export default function LogHistoryPage() {
-    // Todo: Get it to generate the dates of the last x (1-10) days. Then get it to contact the API, handling missing stuff properly. Then be able to view logs of a specific date if need be.
+    // Todo: Be able to view logs of a specific date.
     const [historyDepth, setHistoryDepth] = useState(1);
     const dateArray = [];
 
