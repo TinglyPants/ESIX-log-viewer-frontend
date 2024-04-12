@@ -8,12 +8,12 @@ export default function LogUserPage() {
     // - Get info for specific user - both all time and specific date
     const [selectedData, setSelectedData] = useState("global");
     return (
-        <div className="flex flex-col">
+        <div className="w-screen flex flex-col items-center">
             <select
                 onChange={(e) => {
                     setSelectedData(e.target.value);
                 }}
-                className="bg-light text-2xl m-3 p-5 w-auto"
+                className="bg-light text-2xl p-5 w-auto m-3 self-start"
             >
                 <option value="global">List users</option>
                 <option value="user">List specific user info</option>
