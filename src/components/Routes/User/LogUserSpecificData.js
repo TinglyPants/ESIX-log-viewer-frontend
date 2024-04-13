@@ -8,56 +8,62 @@ export default function LogUserSpecificData() {
 
     let [pieData, setPieData] = useState([]);
 
-    useEffect(() => {
-        if (chosenDate === "") {
-            // No date
-            axios
-                .get(`http://35.246.109.80:4000/users/user/${chosenUser}`)
-                .then((response) => {
-                    let bufferObj = {};
-                    for (const logObj of response.data) {
-                        for (const key of Object.keys(logObj)) {
-                            // Create if not exists, otherwise increment
-                            bufferObj[key] === undefined
-                                ? (bufferObj[key] = logObj[key])
-                                : (bufferObj[key] += logObj[key]);
-                        }
-                    }
-                    // Clear array
-                    let dataObjs = [];
-                    let tempCounter = 1;
-                    for (const key of Object.keys(bufferObj)) {
-                        dataObjs.push({
-                            label: `${key}:${bufferObj[key]}`,
-                            x: tempCounter++, // Takes value first, then increments! Cool thing.
-                            y: bufferObj[key],
-                        });
-                    }
-                    setPieData(dataObjs);
-                })
-                .catch((err) => console.log(err));
-        } else {
-            // Date specific
-            axios
-                .get(
-                    `http://35.246.109.80:4000/users/user/${chosenUser}/${chosenDate}`
-                )
-                .then((response) => {
-                    console.log(response.data);
-                    let dataObjs = [];
-                    let tempCounter = 1;
-                    for (const key of Object.keys(response.data)) {
-                        dataObjs.push({
-                            label: `${key}: ${response.data[key]}`,
-                            x: tempCounter++,
-                            y: response.data[key],
-                        });
-                    }
+    const debounceDelayTimeMS = 500;
 
-                    setPieData(dataObjs);
-                })
-                .catch((err) => console.log(err));
-        }
+    useEffect(() => {
+        const debounce = setTimeout(() => {
+            if (chosenDate === "") {
+                // No date
+                axios
+                    .get(`http://35.246.109.80:4000/users/user/${chosenUser}`)
+                    .then((response) => {
+                        let bufferObj = {};
+                        for (const logObj of response.data) {
+                            for (const key of Object.keys(logObj)) {
+                                // Create if not exists, otherwise increment
+                                bufferObj[key] === undefined
+                                    ? (bufferObj[key] = logObj[key])
+                                    : (bufferObj[key] += logObj[key]);
+                            }
+                        }
+                        // Clear array
+                        let dataObjs = [];
+                        let tempCounter = 1;
+                        for (const key of Object.keys(bufferObj)) {
+                            dataObjs.push({
+                                label: `${key}:${bufferObj[key]}`,
+                                x: tempCounter++, // Takes value first, then increments! Cool thing.
+                                y: bufferObj[key],
+                            });
+                        }
+                        setPieData(dataObjs);
+                    })
+                    .catch((err) => console.log(err));
+            } else {
+                // Date specific
+                axios
+                    .get(
+                        `http://35.246.109.80:4000/users/user/${chosenUser}/${chosenDate}`
+                    )
+                    .then((response) => {
+                        console.log(response.data);
+                        let dataObjs = [];
+                        let tempCounter = 1;
+                        for (const key of Object.keys(response.data)) {
+                            dataObjs.push({
+                                label: `${key}: ${response.data[key]}`,
+                                x: tempCounter++,
+                                y: response.data[key],
+                            });
+                        }
+
+                        setPieData(dataObjs);
+                    })
+                    .catch((err) => console.log(err));
+            }
+        }, debounceDelayTimeMS);
+
+        return () => clearTimeout(debounce);
     }, [chosenDate, chosenUser]);
     return (
         <div className="flex flex-col w-full">
