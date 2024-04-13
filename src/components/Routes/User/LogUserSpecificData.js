@@ -19,7 +19,7 @@ export default function LogUserSpecificData() {
                         for (const key of Object.keys(logObj)) {
                             // Create if not exists, otherwise increment
                             bufferObj[key] === undefined
-                                ? (bufferObj[key] = 1)
+                                ? (bufferObj[key] = logObj[key])
                                 : (bufferObj[key] += logObj[key]);
                         }
                     }
