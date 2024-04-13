@@ -38,6 +38,25 @@ export default function LogUserSpecificData() {
                 .catch((err) => console.log(err));
         } else {
             // Date specific
+            axios
+                .get(
+                    `http://35.246.109.80:4000/users/user/${chosenUser}/${chosenDate}`
+                )
+                .then((response) => {
+                    console.log(response.data);
+                    let dataObjs = [];
+                    let tempCounter = 1;
+                    for (const key of Object.keys(response.data)) {
+                        dataObjs.push({
+                            label: `${key}: ${response.data[key]}`,
+                            x: tempCounter++,
+                            y: response.data[key],
+                        });
+                    }
+
+                    setPieData(dataObjs);
+                })
+                .catch((err) => console.log(err));
         }
     }, [chosenDate, chosenUser]);
     return (
