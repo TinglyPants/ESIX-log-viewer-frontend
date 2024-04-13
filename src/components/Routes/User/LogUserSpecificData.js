@@ -75,7 +75,7 @@ export default function LogUserSpecificData() {
                 max="10"
                 onChange={(e) => setChosenDate(e.target.value)}
                 className="bg-light text-2xl m-3 p-5 w-auto"
-                placeholder="Which date? THIS DOES NOT WORK ATM"
+                placeholder="Which date?"
             />
             <div className="bg-light p-[5rem] w-auto aspect-square my-[2rem] mx-[28rem]">
                 <VictoryPie
