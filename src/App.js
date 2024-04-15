@@ -3,6 +3,7 @@ import NavBarLink from "./components/NavBar/NavBarLink";
 import { Routes, Route } from "react-router-dom";
 import LogHistoryPage from "./components/Routes/History/LogHistoryPage";
 import LogUserPage from "./components/Routes/User/LogUserPage";
+import LogFunctionPage from "./components/Routes/Function/LogFunctionPage";
 export default function App() {
     return (
         <div className="w-screen h-screen bg-dark flex flex-col font-poppins overflow-y-scroll overflow-x-hidden text-white">
@@ -14,6 +15,7 @@ export default function App() {
             <Routes>
                 <Route path="/history" element={<LogHistoryPage />} />
                 <Route path="/user" element={<LogUserPage />} />
+                <Route path="/function" element={<LogFunctionPage />} />
             </Routes>
         </div>
     );

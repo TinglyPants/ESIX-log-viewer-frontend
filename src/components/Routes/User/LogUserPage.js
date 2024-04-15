@@ -3,9 +3,6 @@ import LogUserGlobalData from "./LogUserGlobalData";
 import LogUserSpecificData from "./LogUserSpecificData";
 
 export default function LogUserPage() {
-    // Be able to either:
-    // - List all users
-    // - Get info for specific user - both all time and specific date
     const [selectedData, setSelectedData] = useState("global");
     return (
         <div className="w-screen flex flex-col items-center">
