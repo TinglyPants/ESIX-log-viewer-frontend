@@ -4,7 +4,10 @@ import LogHistoryElement from "./LogHistoryElement";
 
 export default function LogHistoryViewer({ date }) {
     const [logArray, setLogArray] = useState([]);
+    const debounceDelayMS = 500;
+
     useEffect(() => {
+        const debounce = setTimeout(() => {
         axios
             .get("http://35.246.109.80:4000/history/" + date)
             .then((response) => {
@@ -34,7 +37,10 @@ export default function LogHistoryViewer({ date }) {
                         time: "",
                     },
                 ]);
-            });
+            })}, debounceDelayMS)
+            ;
+
+            return () => {clearTimeout(debounce)}
     }, [date]);
     return (
         <div className="w-auto bg-light flex flex-col py-[0.5rem] my-[1rem] mx-[2rem] ">
