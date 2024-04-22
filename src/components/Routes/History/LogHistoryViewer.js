@@ -8,39 +8,40 @@ export default function LogHistoryViewer({ date }) {
 
     useEffect(() => {
         const debounce = setTimeout(() => {
-        axios
-            .get("http://35.246.109.80:4000/history/" + date)
-            .then((response) => {
-                let tempLogArray = [];
-                let lines = response.data.split("\n").slice(0, -1);
-                for (let line of lines) {
-                    const usernameL = line.split(" ")[0];
-                    const actionL = line.split(" ")[2].slice(0, -1);
-                    const timeL = line.split(" ")[4];
-                    console.log(usernameL);
-                    console.log(actionL);
-                    console.log(timeL);
+            axios
+                .get("http://api.esix.blenderboard.com/history/" + date)
+                .then((response) => {
+                    let tempLogArray = [];
+                    let lines = response.data.split("\n").slice(0, -1);
+                    for (let line of lines) {
+                        const usernameL = line.split(" ")[0];
+                        const actionL = line.split(" ")[2].slice(0, -1);
+                        const timeL = line.split(" ")[4];
+                        console.log(usernameL);
+                        console.log(actionL);
+                        console.log(timeL);
 
-                    tempLogArray.push({
-                        username: usernameL,
-                        action: actionL,
-                        time: timeL,
-                    });
-                }
-                setLogArray(tempLogArray);
-            })
-            .catch((err) => {
-                setLogArray([
-                    {
-                        username: "Hmmm. Nothing for today?",
-                        action: "",
-                        time: "",
-                    },
-                ]);
-            })}, debounceDelayMS)
-            ;
-
-            return () => {clearTimeout(debounce)}
+                        tempLogArray.push({
+                            username: usernameL,
+                            action: actionL,
+                            time: timeL,
+                        });
+                    }
+                    setLogArray(tempLogArray);
+                })
+                .catch((err) => {
+                    setLogArray([
+                        {
+                            username: "Hmmm. Nothing for today?",
+                            action: "",
+                            time: "",
+                        },
+                    ]);
+                });
+        }, debounceDelayMS);
+        return () => {
+            clearTimeout(debounce);
+        };
     }, [date]);
     return (
         <div className="w-auto bg-light flex flex-col py-[0.5rem] my-[1rem] mx-[2rem] ">

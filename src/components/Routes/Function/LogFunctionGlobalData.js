@@ -5,14 +5,16 @@ import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel } from "victory";
 export default function LogFunctionGLobalData() {
     const [barData, setBarData] = useState();
     useEffect(() => {
-        axios.get("http://35.246.109.80:4000/functions/list").then((response) => {
-            setBarData(
-                Object.keys(response.data).map((key) => ({
-                    functionName: key,
-                    uses: response.data[key],
-                }))
-            );
-        });
+        axios
+            .get("http://api.esix.blenderboard.com/functions/list")
+            .then((response) => {
+                setBarData(
+                    Object.keys(response.data).map((key) => ({
+                        functionName: key,
+                        uses: response.data[key],
+                    }))
+                );
+            });
     }, []);
 
     return (

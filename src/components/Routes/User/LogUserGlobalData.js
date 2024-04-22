@@ -5,14 +5,16 @@ import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel } from "victory";
 export default function LogUserGlobalData() {
     const [barData, setBarData] = useState();
     useEffect(() => {
-        axios.get("http://35.246.109.80:4000/users/list").then((response) => {
-            setBarData(
-                Object.keys(response.data).map((key) => ({
-                    username: key,
-                    uses: response.data[key],
-                }))
-            );
-        });
+        axios
+            .get("http://api.esix.blenderboard.com/users/list")
+            .then((response) => {
+                setBarData(
+                    Object.keys(response.data).map((key) => ({
+                        username: key,
+                        uses: response.data[key],
+                    }))
+                );
+            });
     }, []);
 
     return (

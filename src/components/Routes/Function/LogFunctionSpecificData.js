@@ -15,7 +15,9 @@ export default function LogFunctionSpecificData() {
             if (chosenDate === "") {
                 // No date
                 axios
-                    .get(`http://35.246.109.80:4000/functions/function/${chosenFunction}`)
+                    .get(
+                        `http://api.esix.blenderboard.com/functions/function/${chosenFunction}`
+                    )
                     .then((response) => {
                         let bufferObj = {};
                         for (const logObj of response.data) {
@@ -43,7 +45,7 @@ export default function LogFunctionSpecificData() {
                 // Date specific
                 axios
                     .get(
-                        `http://35.246.109.80:4000/functions/function/${chosenFunction}/${chosenDate}`
+                        `http://api.esix.blenderboard.com/functions/function/${chosenFunction}/${chosenDate}`
                     )
                     .then((response) => {
                         console.log(response.data);
